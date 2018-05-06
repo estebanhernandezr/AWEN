@@ -1,0 +1,182 @@
+package Lexer;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.ArrayList;
+
+import acm.graphics.*;
+import acm.program.*;
+
+public class Ciclos extends ConsoleProgram {
+
+	public void run() {
+		
+		ArrayList<Character> lista = lector();
+		
+		ArrayList<String> palabras = lector_2(lista);
+		
+		reader(palabras);
+		
+	}
+	
+	public ArrayList<Character> lector() {
+		
+		String path, archivo;
+		
+		path = "C:/Users/Personal/Desktop/Eclipse-Java/Elementos/";
+		archivo = "texto_1.txt";
+		
+		ArrayList<Character> lista = new ArrayList<Character>();
+		
+		try {
+			
+			FileReader lector = new FileReader(path + archivo);
+			
+			int numero = lector.read();
+			
+			while(numero != -1) {
+							
+				char letra = (char)numero;
+							
+				lista.add(letra);
+							
+				numero = lector.read();
+				
+			}
+			
+			lector.close();
+			
+		}catch(Exception error){
+			
+			println("No es posible efectuar dicha accion");
+			
+		}
+		
+		return lista;
+	
+	}
+	
+	public ArrayList<String> lector_2(ArrayList<Character> lista) {
+		
+		ArrayList<String> palabras = new ArrayList<String>();
+		
+		int longitud = lista.size();
+		
+		String palabra = "";
+		
+		for(int i = 0 ; i < longitud ; i++) {
+			
+			char letra = lista.get(i);
+			
+			if(letra == ';') {
+				
+				palabras.add(palabra);
+				
+				palabra = "";
+				
+			}else {
+				
+				palabra += letra;
+				
+			}
+		}
+		
+		//for(int i = 0 ; i < palabras.size() ; i++) {
+			
+			//println(palabras.get(i));
+			
+		//}
+		
+		return palabras;
+		
+	}
+	
+	public void reader(ArrayList<String> lista) {
+		
+		String move = "move";
+		String turnLeft = "turnLeft";
+		String pickUp = "pickUp";
+		
+		ArrayList<String> instrucciones = new ArrayList<String>();
+		
+		for(int i = 0 ; i < lista.size() ; i+=1) {
+			
+			String instruccion = "";
+			
+			for(int o = 0 ; o < lista.get(i).length() - 2 ; o++) {
+				
+				char letrica = lista.get(i).charAt(o);
+				
+				instruccion += letrica;
+				
+			}
+			
+				String palabrita = instruccion;
+				println(palabrita);
+				
+			if((palabrita.equals(move)) || (palabrita.equals(turnLeft))) {
+			
+				char ultimo = lista.get(i).charAt(lista.get(i).length() - 1);
+					
+				int numero = (int)ultimo;
+					
+				if(numero == 49 || numero == 50  || numero == 51  || numero == 52  || numero == 53  || numero == 54  || numero == 55  || numero == 56  || numero == 57) {
+						
+					String palabra = "";
+						
+					for(int u = 0 ; u < lista.get(i).length() - 2 ; u++) {
+							
+						char letra = lista.get(i).charAt(u);
+							
+						palabra += letra;
+							
+					}
+						
+					int number = 0;
+						
+					switch(numero) {
+						
+					case 49: number = 1; break;
+					case 50: number = 2; break;
+					case 51: number = 3; break;
+					case 52: number = 4; break;
+					case 53: number = 5; break;
+					case 54: number = 6; break;
+					case 55: number = 7; break;
+					case 56: number = 8; break;
+					case 57: number = 9; break;
+						
+					}
+						
+					for(int x = 0 ; x < number ; x++) {
+							
+						instrucciones.add(palabra);
+						//println(palabra);
+						
+					}
+					
+				}else {
+						
+					println("Error");
+						
+				}
+					
+		}else {
+				
+			instrucciones.add("Syntax Mistake");
+				
+		}
+				
+				
+	}	
+		
+	for(int p = 0 ; p < instrucciones.size() ; p+=1) {
+			
+		println(instrucciones.get(p));
+			
+	}
+		
+		
+}
+	
+}
